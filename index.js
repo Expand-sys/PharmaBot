@@ -1,9 +1,10 @@
 const fs = require('fs');
 const fetch = require('node-fetch')
 const { Client, MessageAttachment, Collection } = require('discord.js');
-const { prefix, token } = require('./config.json');
+const dotenv = require('dotenv');
 const db = require('quick.db');
-
+dotenv.config();
+const prefix = process.env.PREFIX
 const client = new Client();
 client.commands = new Collection();
 client.cooldowns = new Collection();
@@ -23,25 +24,7 @@ client.once('ready', () => {
 });
 
 
-function getCoefficient(level) {
-    let arg = (0.000412081 * Math.pow(level, 2))
-    return arg
-}
-
-
 client.on('message', async message => {
-	if(message.author.id != 819816527175614465){
-		db.add(`messages_${message.guild.id}_${message.author.id}`, 1)
-		let messageFetch = db.fetch(`messages_${message.guild.id}_${message.author.id}`)
-
-		let messages = messageFetch;
-		let previous = Math.floor(getCoefficient(messages-1))
-		let level = Math.floor(getCoefficient(messages))
-		if(level > previous){
-			message.reply(`Congrats you just leveled up to level ${level}`)
-		}
-	}
-
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -103,4 +86,4 @@ const { cooldowns } = client;
 	}
 });
 
-client.login(token);
+client.login(process.env.TOKEN);
