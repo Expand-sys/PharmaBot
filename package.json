@@ -1,0 +1,19 @@
+{
+  "name": "PharmaBot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://10.10.4.20:3000/HarrisonDubois/discordbot.git"
+  },
+  "author": "Expand",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "got": "^11.8.2"
+  }
+}
