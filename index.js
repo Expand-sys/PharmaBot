@@ -2,7 +2,6 @@ const fs = require('fs');
 const fetch = require('node-fetch')
 const { Client, MessageAttachment, Collection } = require('discord.js');
 const dotenv = require('dotenv');
-const db = require('quick.db');
 dotenv.config();
 const prefix = process.env.PREFIX
 const client = new Client();
