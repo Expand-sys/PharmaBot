@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { findDrug } = require('../../helpers/OpenFDA')
+const { findDrug, adverseEvent } = require('../../helpers/OpenFDA')
 
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
 	aliases: ['openFDA'],
 	description: 'fids drug based on proprietary name',
 	async execute(message, args) {
-		if(args[0] == "find" || args[0] == "Find"){
+		if(args[0].toLowerCase() == "find"){
 			let res = await findDrug(args[1])
 			if(res == 'Couldnt find the Medicine Specified'){
 				message.reply(res)
@@ -16,7 +16,7 @@ module.exports = {
 				.setColor('#0099ff')
 				.setTitle('Name: '+res.results[0].proprietary_name)
 				.addFields(
-					{ name:"application_number_or_citation", value: res.results[0].application_number_or_citation},
+					{name:"application_number_or_citation", value: res.results[0].application_number_or_citation},
 		      {name:"product_type", value: res.results[0].product_type},
 		      {name:"marketing_start_date", value: res.results[0].marketing_start_date},
 		      {name:"package_ndc", value: res.results[0].package_ndc},
@@ -29,6 +29,9 @@ module.exports = {
 				.setFooter('heh nice');
 				message.reply(embed)
 			}
+		}else if(args[0].toLowerCase() == "adverseevent"){
+			let res = await adverseEvent(args[1])
+			console.log(res)
 		}
 
 	},
